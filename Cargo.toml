@@ -1,0 +1,25 @@
+[package]
+name = "etest"
+description = "Allows to control behaviour of `#[test]` like functions"
+version = "0.0.0"
+edition = "2021"
+license = "LGPL-3.0-or-later"
+keywords = ["test", "unittest"]
+categories = ["development-tools::testing"]
+repository = "https://gitlab-ext.sigma-chemnitz.de/ensc/etest"
+homepage = "https://github.com/ensc/etest"
+
+[workspace]
+members = ["etest-derive", "etest-impl"]
+
+[lib]
+
+[features]
+default = []
+tokio = []
+
+trace_resources = []
+
+[dependencies]
+lazy_static = "1"
+etest-derive = { version = "0", path = "etest-derive" }

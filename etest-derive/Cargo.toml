@@ -1,0 +1,14 @@
+[package]
+name = "etest-derive"
+description = "proc_macro part of 'etest'"
+version = "0.0.0"
+edition = "2021"
+license = "LGPL-3.0-or-later"
+repository = "https://gitlab-ext.sigma-chemnitz.de/ensc/etest"
+homepage = "https://github.com/ensc/etest"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+etest-impl = { version = "0", path = "../etest-impl" }
