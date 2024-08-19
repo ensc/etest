@@ -10,12 +10,10 @@ impl TokenSet {
     fn from_group(g: Group) -> Result<Self, Error> {
         let mut res = Vec::new();
 
-        let mut iter = ListIterator::new(g.stream());
-
-        while let Some(v) = iter.next() {
+        for v in ListIterator::new(g.stream()) {
             let v = v.map_err(|_| Error::BadValue)?;
 
-            res.push(v.into());
+            res.push(v);
         }
 
         Ok(Self(res))
