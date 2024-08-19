@@ -173,20 +173,14 @@ impl Config {
         }
 
         // final, outer block
-
-        let mut res = vec![
+        [
             TokenTree::Ident(Ident::new("if", Span::mixed_site())),
             TokenTree::Punct(Punct::new('!',  Spacing::Alone)),
             TokenTree::Group(Group::new(Delimiter::Parenthesis, skip_fn.clone())),
-        ];
-
-        res.extend([
             TokenTree::Group(Group::new(Delimiter::Brace, TokenStream::new())),
             TokenTree::Ident(Ident::new("else", Span::mixed_site())),
             TokenTree::Group(Group::new(Delimiter::Brace, inner_block.into_iter().collect())),
-        ]);
-
-        res.into_iter().collect()
+        ].into_iter().collect()
     }
 
     pub fn emit_lock(&self, _func: &Function) -> TokenStream {
