@@ -176,9 +176,9 @@ impl Config {
 
         let mut res = vec![
             TokenTree::Ident(Ident::new("if", Span::mixed_site())),
+            TokenTree::Punct(Punct::new('!',  Spacing::Alone)),
+            TokenTree::Group(Group::new(Delimiter::Parenthesis, skip_fn.clone())),
         ];
-
-        res.extend(skip_fn.clone());
 
         res.extend([
             TokenTree::Group(Group::new(Delimiter::Brace, TokenStream::new())),
