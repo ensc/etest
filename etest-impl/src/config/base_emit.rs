@@ -18,8 +18,8 @@ impl Config {
     ///
     /// ## skip attribute
     ///
-    /// ```rust
-    /// #[etest_derive::etest(test_fn=()]
+    /// ```no_run
+    /// #[etest(test_fn=())]
     /// fn test() {}
     /// ```
     ///
@@ -31,17 +31,17 @@ impl Config {
     ///
     /// ## default attributes
     ///
-    /// ```rust
-    /// #[etest_derive::etest]
+    /// ```no_run
+    /// #[etest]
     /// fn test_sync() {}
 
-    /// #[etest_derive::etest]
+    /// #[etest]
     /// async fn test_async() {}
     /// ```
     ///
     /// expands to
     ///
-    /// ```rust
+    /// ```ignore
     /// #[test]
     /// fn test_sync() {}
 
@@ -50,14 +50,14 @@ impl Config {
     /// ```
     ///
     /// ## manual attribute
-    /// ```rust
-    /// [etest_derive::etest(test_fn=mytest]
+    /// ```ignore
+    /// #[etest(test_fn=mytest)]
     /// fn test() {}
     /// ```
     ///
     /// expands to
     ///
-    /// ```rust
+    /// ```ignore
     /// #[mytest]
     /// fn test() {}
     /// ```
@@ -133,14 +133,14 @@ impl Config {
     ///
     /// # Example
     ///
-    /// ```rust
-    /// [etest_derive::etest(skip_fn=check_func, skip_result=23]
+    /// ```no_run
+    /// #[etest(skip_fn=check_func, skip_result=23)]
     /// fn test() -> u32 { /* ... */ }
     /// ```
     ///
     /// expands to
     ///
-    /// ```rust
+    /// ```no_run
     /// fn test() {
     ///     if check_func() {} else { return 23 }
     ///     /* .... */
