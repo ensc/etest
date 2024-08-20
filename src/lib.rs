@@ -2,6 +2,16 @@
 
 //! Controls execution of `#[test]`
 //!
+//! Crate supports
+//!
+//! - [skipping](#conditional-execution) of tests based on dynamic conditions
+//!
+//! - [serial execution](#limiting-parallel-execution) of tests
+//!
+//! - [scheduling timeouts](#timeout) of tests
+//!
+//! See [etest-tests](../etest_tests/) crate for more examples.
+//!
 //! ## Conditional execution
 //!
 //! Related attributes:
