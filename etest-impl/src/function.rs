@@ -6,6 +6,7 @@ use crate::Error;
 
 #[derive(Debug, Default)]
 pub struct Function {
+    pub attr:		Vec<TokenTree>,
     pub decl:		TokenStream,
     pub body:		TokenStream,
     pub name:		String,
@@ -53,6 +54,15 @@ impl Function {
         loop {
             match iter.next() {
                 None	=> return Err(Error::FunctionDeclIncomplete),
+
+                // '#[...]'
+                Some(TokenTree::Punct(p)) if p.as_char() == '#'	=> {
+                    match iter.next() {
+                        Some(tt)	=> res.attr.push(tt),
+                        None		=> return Err(Error::FunctionDeclBad),
+                    }
+                },
+
                 Some(ref t @ TokenTree::Ident(ref id))	=> {
                     decl.push(t.clone());
 
@@ -62,6 +72,7 @@ impl Function {
                         _	=> {},
                     }
                 },
+
                 Some(_)	=> return Err(Error::FunctionDeclBad),
             }
         }

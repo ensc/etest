@@ -66,7 +66,7 @@ impl Config {
             return TokenStream::new();
         }
 
-        let func = match &self.test_fn {
+        let test_attr = match &self.test_fn {
             Some(f)	=> f.clone(),
             None if func.is_async	=> [
                 TokenTree::Ident(Ident::new("tokio", Span::mixed_site())),
@@ -79,10 +79,17 @@ impl Config {
             ].into_iter().collect(),
         };
 
-        vec![
+        let mut res = vec![
             TokenTree::Punct(Punct::new('#', Spacing::Alone)),
-            TokenTree::Group(Group::new(Delimiter::Bracket, func))
-        ].into_iter().collect()
+            TokenTree::Group(Group::new(Delimiter::Bracket, test_attr))
+        ];
+
+        for attr in &func.attr {
+            res.push(TokenTree::Punct(Punct::new('#', Spacing::Alone)));
+            res.push(attr.clone());
+        }
+
+        res.into_iter().collect()
     }
 
     /// Adds some generic code in front of generated function; e.g.
