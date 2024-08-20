@@ -274,21 +274,36 @@ impl Config {
                 TokenTree::Literal(Literal::u64_unsuffixed(timeout))
             ].into_iter().collect())),
             TokenTree::Punct(Punct::new(',', Spacing::Alone)),
+        ];
 
+        args.extend([
             TokenTree::Ident(Ident::new("move", Span::mixed_site())),
             TokenTree::Punct(Punct::new('|', Spacing::Alone)),
             TokenTree::Punct(Punct::new('|', Spacing::Alone)),
-        ];
+        ]);
+
+        // TODO: this depends on #![feature(async_closure)]
+        // https://github.com/rust-lang/rust/issues/62290
+        if func.is_async {
+            args.push(TokenTree::Ident(Ident::new("async", Span::mixed_site())));
+        }
 
         args.extend(func.body.clone());
 
-        let res = vec![
+        let mut res = vec![
             TokenTree::Ident(Ident::new(CRATE_NAME, Span::mixed_site())),
             TokenTree::Punct(Punct::new(':', Spacing::Joint)),
             TokenTree::Punct(Punct::new(':', Spacing::Alone)),
             TokenTree::Ident(Ident::new("panic_after", Span::mixed_site())),
             TokenTree::Group(Group::new(Delimiter::Parenthesis, args.into_iter().collect())),
         ];
+
+        if func.is_async {
+            res.extend([
+            TokenTree::Punct(Punct::new('.', Spacing::Alone)),
+                TokenTree::Ident(Ident::new("await", Span::mixed_site())),
+            ]);
+        }
 
         res.into_iter().collect()
     }
