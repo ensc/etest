@@ -35,3 +35,14 @@ This test will:
 - will share the "network" resource; e.g. other tests which share this
   resource are allowed at the same time, but no tests which use it
   exclusively.
+
+# License
+
+The code which is linked to tests, is licensed under LGPL-3.0-or-later.
+This includes the content of the toplevel `etest` crate.
+
+Implementation details (`etest-derive` + `etest-impl`) are licensed under
+GPL-3.0-or-later with the explicit permission to use and distribute the
+generated code (the expanded macro) under terms of your choice.
+
+Independent tests (`etest-tests`) are licensed under GPL-3.0-or-later.

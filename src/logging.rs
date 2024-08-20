@@ -1,5 +1,6 @@
 //
 
+#[doc(hidden)]
 #[macro_export]
 macro_rules! trace {
     ($feature:literal, $($arg:tt)*) => {{
@@ -9,6 +10,7 @@ macro_rules! trace {
     }}
 }
 
+#[doc(hidden)]
 #[macro_export]
 macro_rules! trace_resources {
     ($($arg:tt)*) => {

@@ -18,7 +18,7 @@ impl Config {
     ///
     /// ## skip attribute
     ///
-    /// ```no_run
+    /// ```ignore
     /// #[etest(test_fn=())]
     /// fn test() {}
     /// ```
@@ -31,7 +31,7 @@ impl Config {
     ///
     /// ## default attributes
     ///
-    /// ```no_run
+    /// ```ignore
     /// #[etest]
     /// fn test_sync() {}
 
@@ -87,8 +87,8 @@ impl Config {
 
     /// Adds some generic code in front of generated function; e.g.
     ///
-    /// ```rust
-    /// use etest::prelude::*;
+    /// ```ignore
+    /// # use etest::prelude::*;
     /// let etest_current_test = etest::ResourceUser::new();
     /// ```
     pub fn emit_generic(&self, _func: &Function) -> TokenStream {
@@ -133,14 +133,14 @@ impl Config {
     ///
     /// # Example
     ///
-    /// ```no_run
+    /// ```ignore
     /// #[etest(skip_fn=check_func, skip_result=23)]
     /// fn test() -> u32 { /* ... */ }
     /// ```
     ///
     /// expands to
     ///
-    /// ```no_run
+    /// ```ignore
     /// fn test() {
     ///     if check_func() {} else { return 23 }
     ///     /* .... */

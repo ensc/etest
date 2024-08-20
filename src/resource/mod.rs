@@ -17,5 +17,6 @@ use notify::ResourceManagerNotify;
 use lock::ResourceLockGuard;
 
 lazy_static::lazy_static!(
+    /// Internal global object which manages the resouces.
     pub static ref RESOURCES: std::sync::RwLock<ResourceManager> = Default::default();
 );

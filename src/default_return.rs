@@ -1,3 +1,10 @@
+/// Allows to construct the return value when test is skipped
+///
+/// When not explicitly given by the `skip_result` parameter, the test will
+/// return [`DefaultReturn::default_return()`].
+///
+/// Application might need to implement an own implementation for uncommon
+/// return type.
 pub trait DefaultReturn {
     fn default_return() -> Self;
 }
