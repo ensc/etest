@@ -161,9 +161,6 @@ pub use default_return::DefaultReturn;
 #[doc(hidden)]
 pub use helpers::*;
 
-#[cfg(test)]
-mod test;
-
 #[doc(hidden)]
 pub mod prelude {
     pub use crate::DefaultReturn;

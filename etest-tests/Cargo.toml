@@ -1,0 +1,15 @@
+[package]
+name = "etest-tests"
+version = "0.0.0"
+description = "testsuite for 'etest'"
+edition = "2021"
+license = "GPL-3.0-or-later"
+repository = "https://gitlab-ext.sigma-chemnitz.de/ensc/etest"
+homepage = "https://github.com/ensc/etest"
+
+[features]
+default = []
+tokio = []
+
+[dependencies]
+etest = { version = "0", path = ".." }

@@ -10,7 +10,7 @@ repository = "https://gitlab-ext.sigma-chemnitz.de/ensc/etest"
 homepage = "https://github.com/ensc/etest"
 
 [workspace]
-members = ["etest-derive", "etest-impl"]
+members = ["etest-derive", "etest-impl", "etest-tests"]
 
 [lib]
 
