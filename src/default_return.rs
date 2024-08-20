@@ -15,6 +15,12 @@ impl DefaultReturn for () {
     }
 }
 
+impl DefaultReturn for std::process::ExitCode {
+    fn default_return() -> Self {
+        std::process::ExitCode::SUCCESS
+    }
+}
+
 impl <T: Default, E> DefaultReturn for std::result::Result<T, E> {
     fn default_return() -> Self {
         Ok(T::default())
