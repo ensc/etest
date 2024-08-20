@@ -167,4 +167,6 @@ mod test;
 #[doc(hidden)]
 pub mod prelude {
     pub use crate::DefaultReturn;
+    pub use crate::ResourceId;
+    pub use crate::etest;
 }
