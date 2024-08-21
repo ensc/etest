@@ -1,0 +1,58 @@
+# --*- gitlab-ci -*--
+include:
+  - component: $X_CI_GITLAB_CI_CATALOG/check-merge@v0.5
+  - component: $X_CI_GITLAB_CI_CATALOG/no-dup-pipeline@v0.5
+
+variables:
+  RUSTUP_INIT_SKIP_PATH_CHECK: "yes"
+
+.build:
+  image: $CI_REGISTRY/docker/sigma/ci/fedora:38
+  variables:
+    CARGO_HOME: $CI_PROJECT_DIR/.home/cargo
+    RUSTUP_HOME: $CI_PROJECT_DIR/.home/rustup
+    CARGO_TARGET_DIR: $CI_PROJECT_DIR/.home/target
+    CARGO_BUILD_FLAGS: '--all-targets --tests --benches --workspace'
+    RUSTUP_CHAIN: stable
+    _CARGO: "cargo +$RUSTUP_CHAIN"
+    RUN_GRCOV: t
+
+  coverage: /^\s*lines\.*:\s*([\d\.]+%)/
+
+  before_script:
+    - sudo -iH rm -f /etc/sudoers
+    - rm -rf $CARGO_TARGET_DIR
+    - |
+      curl -fRS https://sh.rustup.rs > /tmp/rustup
+      sh /tmp/rustup -y --default-toolchain "$RUSTUP_CHAIN"
+      source $CARGO_HOME/env
+      rustup component add llvm-tools-preview
+
+    - _make() { make CARGO="${_CARGO}" "$@"; }
+
+  script:
+    - _make build lint IS_RELEASE=t
+    - _make build lint
+    - _make test
+    - _make version-info
+    - _make run-grcov || ':'
+    - lcov --summary coverage.lcov || ':'
+
+  artifacts:
+    when: always
+    paths:
+      - Cargo.lock
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.cobertura
+      metrics: metrics.txt
+
+build:toolchains:
+  extends: [ ".build" ]
+  parallel:
+    matrix:
+      - RUSTUP_CHAIN:
+          - nightly
+          - stable
+          - "1.75"
