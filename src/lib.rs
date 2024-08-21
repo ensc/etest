@@ -153,6 +153,7 @@ pub use etest_derive::etest;
 
 mod resource;
 mod location;
+mod timeout;
 mod default_return;
 mod helpers;
 
@@ -167,6 +168,9 @@ pub use resource::{ ResourceBuilder, RESOURCES };
 
 #[doc(inline)]
 pub use default_return::DefaultReturn;
+
+#[doc(inline)]
+pub use timeout::Timeout;
 
 #[doc(hidden)]
 pub use helpers::*;
