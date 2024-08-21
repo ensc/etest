@@ -73,7 +73,8 @@ impl Function {
                     }
                 },
 
-                Some(_)	=> return Err(Error::FunctionDeclBad),
+                // e.g. the group in `pub(self)`
+                Some(t)	=> decl.push(t.clone()),
             }
         }
 
