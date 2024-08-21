@@ -1,4 +1,16 @@
-[![Coverage Status](https://coveralls.io/repos/github/ensc/etest/badge.svg?branch=master)](https://coveralls.io/github/ensc/etest?branch=master)
+[![crates.io][crates-badge]][crates-url]
+[![docs.rs][docs-badge]][docs-url]
+[![Coverage Status][coveralls-badge]][coveralls-url]
+[![Build Status][ci-badge]][ci-url]
+
+[crates-badge]:    https://img.shields.io/crates/v/etest.svg
+[crates-url]:      https://crates.io/crates/etest
+[docs-badge]:      https://img.shields.io/docsrs/etest/latest
+[docs-url]:        https://docs.rs/etest/latest/etest/index.html
+[coveralls-badge]: https://coveralls.io/repos/github/ensc/etest/badge.svg?branch=master
+[coveralls-url]:   https://coveralls.io/github/ensc/etest?branch=master
+[ci-badge]:        https://github.com/ensc/etest/actions/workflows/rust.yml/badge.svg
+[ci-url]:          https://github.com/ensc/etest/actions/workflows/rust.yml
 
 # About
 
