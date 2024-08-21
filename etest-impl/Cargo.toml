@@ -6,6 +6,3 @@ edition = "2021"
 license = "GPL-3.0-or-later"
 repository = "https://gitlab-ext.sigma-chemnitz.de/ensc/etest"
 homepage = "https://github.com/ensc/etest"
-
-[dependencies]
-litrs = { version = "0", default-features = false }
