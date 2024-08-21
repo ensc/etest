@@ -1,0 +1,52 @@
+name: Generic build
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_TEST_LOG: debug
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # test 1.75 because this is the rust version in RHEL 8
+    strategy:
+      matrix:
+        toolchain: [ "stable", "nightly", "1.75" ]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install Rust toolchain
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: ${{ matrix.toolchain }}
+        override: true
+
+    - name: Prepare Cargo.lock
+      uses: actions-rs/cargo@v1
+      with:
+        command: update
+
+    - name: Run build
+      uses: actions-rs/cargo@v1
+      with:
+        command: build
+        args: "--all-targets --locked --tests --benches --workspace --release"
+
+    - name: Run tests
+      uses: actions-rs/cargo@v1
+      with:
+        command: test
+
+    - name: Upload Cargo.lock
+      uses: actions/upload-artifact@v3
+      with:
+        name: Cargo.lock
+        path: Cargo.lock

@@ -1,0 +1,49 @@
+name: Code coverage test
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install Rust toolchain
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: nightly
+        override: true
+        components: llvm-tools-preview
+
+    - name: Build grcov
+      run: cargo install grcov
+
+    - name: Prepare Cargo.lock
+      uses: actions-rs/cargo@v1
+      with:
+        command: build
+
+    - name: Run tests
+      env:
+        RUN_GRCOV: t
+      run: make test
+
+    - name: Gather coverage
+      env:
+        RUN_GRCOV: t
+      run: make run-grcov
+
+    - name: Coveralls upload
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: coverage.lcov
