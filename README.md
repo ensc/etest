@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/ensc/etest/badge.svg?branch=master)](https://coveralls.io/github/ensc/etest?branch=master)
+
 # About
 
 `etest` allows to control behaviour of `#[test]` like functions:
