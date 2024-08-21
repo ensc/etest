@@ -1,4 +1,4 @@
-use proc_macro::{Delimiter, Group, Ident, Literal, Punct, Spacing, Span, TokenStream, TokenTree};
+use proc_macro::{Delimiter, Group, Ident, Punct, Spacing, Span, TokenStream, TokenTree};
 
 use super::Config;
 
@@ -250,7 +250,7 @@ impl Config {
     }
 
     pub fn emit_timeout(self, func: &Function) -> TokenStream {
-        let Some(timeout) = self.timeout_ms else {
+        let Some(timeout) = self.timeout else {
             return func.body.clone();
         };
 
@@ -259,22 +259,13 @@ impl Config {
             TokenTree::Punct(Punct::new('&', Spacing::Joint)),
             TokenTree::Ident(Ident::new(VARNAME_CURENT_TEST, Span::mixed_site())),
             TokenTree::Punct(Punct::new(',', Spacing::Alone)),
-
-            TokenTree::Ident(Ident::new("std", Span::mixed_site())),
-            TokenTree::Punct(Punct::new(':', Spacing::Joint)),
-            TokenTree::Punct(Punct::new(':', Spacing::Alone)),
-            TokenTree::Ident(Ident::new("time", Span::mixed_site())),
-            TokenTree::Punct(Punct::new(':', Spacing::Joint)),
-            TokenTree::Punct(Punct::new(':', Spacing::Alone)),
-            TokenTree::Ident(Ident::new("Duration", Span::mixed_site())),
-            TokenTree::Punct(Punct::new(':', Spacing::Joint)),
-            TokenTree::Punct(Punct::new(':', Spacing::Alone)),
-            TokenTree::Ident(Ident::new("from_millis", Span::mixed_site())),
-            TokenTree::Group(Group::new(Delimiter::Parenthesis, [
-                TokenTree::Literal(Literal::u64_unsuffixed(timeout))
-            ].into_iter().collect())),
-            TokenTree::Punct(Punct::new(',', Spacing::Alone)),
         ];
+
+        args.extend(timeout);
+
+        args.extend([
+            TokenTree::Punct(Punct::new(',', Spacing::Alone)),
+        ]);
 
         args.extend([
             TokenTree::Ident(Ident::new("move", Span::mixed_site())),

@@ -130,9 +130,13 @@
 //! ## Timeout
 //!
 //! Related attributes:
-//! - `timeout`: unsigned integer which represents the maximum runtime in
-//!   milliseconds of the test.  When test is still active after this time, it
-//!   will be aborted by a `panic!`.
+//!
+//! - `timeout`: timeout which represents the maximum runtime of the test.
+//!   When test is still active after this time, it will be aborted by a
+//!   `panic!`.
+//!
+//!   The timeout is a value which implements [`Into<Timeout>`](Timeout);
+//!   plain numbers will mean milliseconds.
 //!
 //! Clock will start to tick **after** resources have been allocated.
 //!

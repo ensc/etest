@@ -10,7 +10,7 @@ pub struct Config {
     pub test_fn:	Option<TokenStream>,
     pub skip_fn:	Option<TokenStream>,
     pub skip_result:	Option<TokenStream>,
-    pub timeout_ms:	Option<u64>,
+    pub timeout:	Option<TokenStream>,
     pub uses:		TokenSet,
     pub consumes:	TokenSet,
 }
@@ -34,7 +34,7 @@ impl Config {
                 "test_fn"	=> res.test_fn       = cfg.convert::<TokenStream>()?,
                 "skip"		=> res.skip_fn       = cfg.convert::<TokenStream>()?,
                 "skip_result"	=> res.skip_result   = cfg.convert::<TokenStream>()?,
-                "timeout"	=> res.timeout_ms    = cfg.convert::<u64>()?,
+                "timeout"	=> res.timeout       = cfg.convert::<TokenStream>()?,
                 "uses"		=> res.uses          = cfg.convert::<TokenSet>()?.unwrap(),
                 "consumes"	=> res.consumes      = cfg.convert::<TokenSet>()?.unwrap(),
                 c		=> return Err(err(Span::call_site(), &format!("unsupported key: {c:?}")))
