@@ -1,18 +1,20 @@
-use crate::Location;
+use crate::{ Location, Timeout };
 
 pub fn mark_skipped(loc: &Location) {
     eprintln!("{}: SKIPPED", loc);
 }
 
-// from https://github.com/rust-lang/rfcs/issues/2798#issuecomment-552949300
-pub fn panic_after<T, F>(loc: &Location, d: std::time::Duration, f: F) -> T
+pub fn panic_after<T, D, F>(loc: &Location, d: D, f: F) -> T
 where
     T: Send + 'static,
     F: FnOnce() -> T,
     F: Send + 'static,
+    D: Into<Timeout>,
 {
     use std::sync::mpsc::RecvTimeoutError as E;
     use std::sync::Arc;
+
+    let d = d.into().duration();
 
     let (done_tx, done_rx) = std::sync::mpsc::channel();
 
