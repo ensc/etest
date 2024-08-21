@@ -183,5 +183,6 @@ pub use helpers::*;
 pub mod prelude {
     pub use crate::DefaultReturn;
     pub use crate::ResourceId;
+    pub use crate::Timeout;
     pub use crate::etest;
 }
