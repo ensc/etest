@@ -48,9 +48,3 @@ impl std::ops::Deref for TokenSet {
         &self.0
     }
 }
-
-impl std::ops::DerefMut for TokenSet {
-    fn deref_mut(&mut self) -> &mut Self::Target {
-        &mut self.0
-    }
-}

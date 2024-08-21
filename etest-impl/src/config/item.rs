@@ -16,17 +16,6 @@ impl ConfigItem {
         self.key.to_string()
     }
 
-    pub fn has_val(&self) -> bool {
-        self.val.is_some()
-    }
-
-    pub fn get_val(&self) -> Result<TokenStream, Error> {
-        self.val
-            .as_ref()
-            .ok_or(Error::NoValue)
-            .cloned()
-    }
-
     pub fn convert<T>(&self) -> Result<Option<T>, TokenStream>
     where
         for <'a> &'a Self: TryInto<T>,
