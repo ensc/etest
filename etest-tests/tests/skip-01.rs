@@ -25,3 +25,13 @@ fn test_4() -> ! {
     loop {
     }
 }
+
+#[etest(skip=true)]
+fn test_5() -> Result<(), ()> {
+    Err(())
+}
+
+#[etest(skip=true)]
+fn test_6() {
+    unreachable!()
+}
