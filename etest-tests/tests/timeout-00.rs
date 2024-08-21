@@ -16,6 +16,7 @@ fn test_1() {
 #[should_panic]
 #[etest(timeout=1_000)]
 fn test_2() -> ! {
+    #[allow(clippy::empty_loop)]
     loop {
     }
 }

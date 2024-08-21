@@ -22,6 +22,7 @@ fn test_3() -> ExitCode {
 
 #[etest(skip=true)]
 fn test_4() -> ! {
+    #[allow(clippy::empty_loop)]
     loop {
     }
 }
