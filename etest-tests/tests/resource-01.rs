@@ -29,3 +29,7 @@ fn test2() {
 #[etest(consumes=[Output::Lvds, Output::Hdmi])]
 fn test3() {
 }
+
+#[etest(consumes=[ResourceId::new("lvds")])]
+fn test4() {
+}
