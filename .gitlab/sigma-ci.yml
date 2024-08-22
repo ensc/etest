@@ -7,7 +7,7 @@ variables:
   RUSTUP_INIT_SKIP_PATH_CHECK: "yes"
 
 .build:
-  image: $CI_REGISTRY/docker/sigma/ci/fedora:38
+  image: $CI_REGISTRY/docker/sigma/ci/fedora:latest
   variables:
     CARGO_HOME: $CI_PROJECT_DIR/.home/cargo
     RUSTUP_HOME: $CI_PROJECT_DIR/.home/rustup
