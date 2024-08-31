@@ -3,7 +3,6 @@
 extern crate proc_macro;
 
 mod defs {
-    pub const CPU_RESOURCE: &str = "cpu";
     pub const CRATE_NAME: &str = "etest";
     pub const VARNAME_CURENT_TEST: &str = "etest_current_test";
 }

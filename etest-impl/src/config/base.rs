@@ -1,4 +1,4 @@
-use proc_macro::{Delimiter, Literal, Span, TokenStream, TokenTree};
+use proc_macro::{Delimiter, Ident, Punct, Span, Spacing, TokenStream, TokenTree};
 
 use crate::defs::*;
 use crate::utils::err;
@@ -18,7 +18,13 @@ pub struct Config {
 impl Config {
     fn get_default_uses() -> TokenStream {
         vec![
-            TokenTree::Literal(Literal::string(CPU_RESOURCE))
+            TokenTree::Ident(Ident::new(CRATE_NAME, Span::mixed_site())),
+            TokenTree::Punct(Punct::new(':', Spacing::Joint)),
+            TokenTree::Punct(Punct::new(':', Spacing::Alone)),
+            TokenTree::Ident(Ident::new("ResourceId", Span::mixed_site())),
+            TokenTree::Punct(Punct::new(':', Spacing::Joint)),
+            TokenTree::Punct(Punct::new(':', Spacing::Alone)),
+            TokenTree::Ident(Ident::new("Basic", Span::mixed_site())),
         ].into_iter().collect()
     }
 
