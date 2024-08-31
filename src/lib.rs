@@ -10,7 +10,7 @@
 //!
 //! - [scheduling timeouts](#timeout) of tests
 //!
-//! See [etest-tests](../etest_tests/) crate for more examples.
+//! See [etest-tests](../../etest_tests/) crate for more examples.
 //!
 //! ## Conditional execution
 //!

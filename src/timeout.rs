@@ -2,8 +2,8 @@ use std::time::Duration;
 
 /// Wrapper around [`std::time::Duration`].
 ///
-/// Parameter of `timeout` excepts some value implements
-/// [`Into<Timeout>`](Timeout).
+/// Parameter of `timeout` accepts a value which implements
+/// [`Into<Timeout>`](Timeout).  Numeric values mean milliseconds.
 #[derive(Clone, Copy, Debug)]
 pub struct Timeout(Duration);
 
