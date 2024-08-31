@@ -4,6 +4,7 @@ pub enum Error {
     BadValue,
     BadInteger,
     BadType,
+    ExtraData,
 
     FunctionDeclIncomplete,
     FunctionDeclBad,
