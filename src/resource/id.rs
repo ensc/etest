@@ -43,6 +43,12 @@ pub enum ResourceIdImpl<'a> {
     /// Normal resource
     Id(Cow<'a, str>),
 
+    /// An empty resource which will be ignored.
+    ///
+    /// Used e.g. when generating a list of resources dynamically where some
+    /// of the resources are optional and can be omitted.
+    None,
+
     /// Basic resource which is used by all tests.
     ///
     /// Unless specified else (by the `no_default_uses` attribute), this
@@ -62,6 +68,10 @@ impl <'a> ResourceIdImpl<'a> {
     pub fn from_string(s: String) -> Self {
         Self::Id(Cow::Owned(s))
     }
+
+    pub fn is_some(&self) -> bool {
+        self != &Self::None
+    }
 }
 
 impl <'a> From<&'a str> for ResourceIdImpl<'a> {
@@ -73,5 +83,21 @@ impl <'a> From<&'a str> for ResourceIdImpl<'a> {
 impl From<String> for ResourceIdImpl<'_> {
     fn from(val: String) -> Self {
         Self::from_string(val)
+    }
+}
+
+/// Maps an option to a [`ResourceId`].
+///
+/// Value of `None` maps to the special [`ResourceId::None`] resource type
+/// which will be ignored when building list of resources dynamically.
+impl <'a, T> From<Option<T>> for ResourceIdImpl<'a>
+where
+    T: Into<ResourceIdImpl<'a>>,
+{
+    fn from(val: Option<T>) -> Self {
+        match val {
+            None	=> Self::None,
+            Some(v)	=> v.into(),
+        }
     }
 }
