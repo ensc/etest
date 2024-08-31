@@ -111,17 +111,28 @@ impl Config {
             TokenTree::Punct(Punct::new('*', Spacing::Alone)),
             TokenTree::Punct(Punct::new(';', Spacing::Alone)),
 
-            // 'let etest_current_test = etest::ResourceUser::new();'
+            // 'let etest_current_test = (|| { etest::ResourceUser::new() })();'
+            //
+            // Use the closure to interrupt propagation of #[track_caller] and
+            // really the return the current location. See
+            // https://rust-lang.github.io/rfcs/2091-inline-semantic.html#propagation-of-tracker
             TokenTree::Ident(Ident::new("let", Span::mixed_site())),
             TokenTree::Ident(Ident::new(VARNAME_CURENT_TEST, Span::mixed_site())),
             TokenTree::Punct(Punct::new('=', Spacing::Alone)),
-            TokenTree::Ident(Ident::new(CRATE_NAME, Span::mixed_site())),
-            TokenTree::Punct(Punct::new(':', Spacing::Joint)),
-            TokenTree::Punct(Punct::new(':', Spacing::Alone)),
-            TokenTree::Ident(Ident::new("Location", Span::mixed_site())),
-            TokenTree::Punct(Punct::new(':', Spacing::Joint)),
-            TokenTree::Punct(Punct::new(':', Spacing::Alone)),
-            TokenTree::Ident(Ident::new("new", Span::mixed_site())),
+            TokenTree::Group(Group::new(Delimiter::Parenthesis, [
+                TokenTree::Punct(Punct::new('|', Spacing::Alone)),
+                TokenTree::Punct(Punct::new('|', Spacing::Alone)),
+                TokenTree::Group(Group::new(Delimiter::Brace, [
+                    TokenTree::Ident(Ident::new(CRATE_NAME, Span::mixed_site())),
+                    TokenTree::Punct(Punct::new(':', Spacing::Joint)),
+                    TokenTree::Punct(Punct::new(':', Spacing::Alone)),
+                    TokenTree::Ident(Ident::new("Location", Span::mixed_site())),
+                    TokenTree::Punct(Punct::new(':', Spacing::Joint)),
+                    TokenTree::Punct(Punct::new(':', Spacing::Alone)),
+                    TokenTree::Ident(Ident::new("new", Span::mixed_site())),
+                    TokenTree::Group(Group::new(Delimiter::Parenthesis, TokenStream::new())),
+                ].into_iter().collect())),
+            ].into_iter().collect())),
             TokenTree::Group(Group::new(Delimiter::Parenthesis, TokenStream::new())),
             TokenTree::Punct(Punct::new(';', Spacing::Alone)),
         ].into_iter().collect()
