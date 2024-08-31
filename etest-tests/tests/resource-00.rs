@@ -46,7 +46,7 @@ fn test0_2() {
     fetch_dec(&RES_VIDEO);
 }
 
-#[etest(uses=["audio"])]
+#[etest(uses=["audio".to_string()])]
 fn test0_3() {
     fetch_inc(&RES_AUDIO);
 
@@ -55,7 +55,7 @@ fn test0_3() {
     fetch_dec(&RES_AUDIO);
 }
 
-#[etest(consumes=["video"])]
+#[etest(consumes=["video".to_string()])]
 fn test0_4() {
     assert_eq!(fetch_inc(&RES_VIDEO), 0);
 
