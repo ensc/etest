@@ -102,7 +102,12 @@ impl ResourceManager {
                 }
                 None		=> {
                     trace_resources!("resource not available yet for {owner}; waiting...");
-                    this.read().unwrap().notify.wait(token);
+                    let notify = this.read().unwrap().notify.clone();
+
+                    // do not combine this with above; it will hold the lock
+                    // on 'this' else which might block at the beginning of
+                    // another loop
+                    notify.wait(token);
                 }
             }
         }
