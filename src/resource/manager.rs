@@ -26,7 +26,7 @@ impl ResourceManager {
     fn try_reserve(&mut self, request: &ResourceSet, owner: &Location) -> Option<ResourceLockGuard> {
         let mut managed = Vec::new();
 
-        trace_resources!("trying to acquire resources for {:?}", owner);
+        trace_resources!("trying to acquire resources for {}", owner);
 
         // first step: check whether requested resources are available.
         //
@@ -97,10 +97,13 @@ impl ResourceManager {
 
             match resource {
                 Some(g)		=> {
-                    trace_resources!("resources aquired for {:?}", owner);
+                    trace_resources!("resources aquired for {owner}");
                     break g;
                 }
-                None		=> this.read().unwrap().notify.wait(token),
+                None		=> {
+                    trace_resources!("resource not available yet for {owner}; waiting...");
+                    this.read().unwrap().notify.wait(token);
+                }
             }
         }
     }
