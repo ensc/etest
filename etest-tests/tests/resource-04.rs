@@ -2,9 +2,7 @@
 
 use etest::prelude::*;
 
-
-
-#[etest(timeout=3_000, consumes="cpu", test_fn=())]
+#[etest(timeout=3_000, notparallel, test_fn=())]
 fn test_inner_0() {
 }
 
@@ -14,7 +12,7 @@ fn test_outer_0() {
 }
 
 
-#[etest(timeout=1_000, consumes="cpu", test_fn=())]
+#[etest(timeout=1_000, notparallel, test_fn=())]
 fn test_inner_1() {
 }
 
