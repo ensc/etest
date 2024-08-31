@@ -57,6 +57,10 @@ impl Config {
             res.consumes.push(Config::get_default_uses());
         }
 
+        if option_env!("ETEST_IMPL_DUMP_CONFIG").is_some() {
+            println!("config={res:?}");
+        }
+
         Ok(res)
     }
 
