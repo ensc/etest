@@ -31,6 +31,7 @@ impl Config {
     pub fn parse(attr: TokenStream) -> Result<Config, TokenStream> {
         let mut res = Config::default();
         let mut no_default_uses = false;
+        let mut notparallel = false;
 
         for cfg in ConfigIterator::new(attr) {
             let cfg = cfg?;
@@ -43,12 +44,17 @@ impl Config {
                 "timeout"	=> res.timeout       = cfg.convert::<TokenStream>()?,
                 "uses"		=> res.uses          = cfg.convert::<TokenSet>()?.unwrap(),
                 "consumes"	=> res.consumes      = cfg.convert::<TokenSet>()?.unwrap(),
+                "notparallel"	=> notparallel       = true,
                 c		=> return Err(err(Span::call_site(), &format!("unsupported key: {c:?}")))
             }
         }
 
         if !no_default_uses {
             res.uses.push(Config::get_default_uses());
+        }
+
+        if notparallel {
+            res.consumes.push(Config::get_default_uses());
         }
 
         Ok(res)
