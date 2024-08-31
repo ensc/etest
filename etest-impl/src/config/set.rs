@@ -3,7 +3,7 @@ use proc_macro::{Delimiter, Group, TokenStream, TokenTree};
 use crate::Error;
 use super::ListIterator;
 
-#[derive(Default, Debug)]
+#[derive(Default)]
 pub struct TokenSet(Vec<TokenStream>);
 
 impl TokenSet {
@@ -46,5 +46,17 @@ impl std::ops::Deref for TokenSet {
 
     fn deref(&self) -> &Self::Target {
         &self.0
+    }
+}
+
+impl std::fmt::Debug for TokenSet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut l = f.debug_list();
+
+        for t in &self.0 {
+            l.entry(&format!("{}", t));
+        }
+
+        l.finish()
     }
 }
