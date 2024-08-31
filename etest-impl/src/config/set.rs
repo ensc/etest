@@ -43,6 +43,10 @@ impl TokenSet {
     pub fn extend(&mut self, other: Self) {
         self.0.extend(other.0);
     }
+
+    pub fn push(&mut self, tokens: TokenStream) {
+        self.0.push(tokens);
+    }
 }
 
 impl std::ops::Deref for TokenSet {
