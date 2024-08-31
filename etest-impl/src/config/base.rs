@@ -16,10 +16,10 @@ pub struct Config {
 }
 
 impl Config {
-    fn get_default_uses() -> TokenSet {
-        TokenSet::from_stream(vec![
+    fn get_default_uses() -> TokenStream {
+        vec![
             TokenTree::Literal(Literal::string(CPU_RESOURCE))
-        ].into_iter().collect()).unwrap()
+        ].into_iter().collect()
     }
 
     pub fn parse(attr: TokenStream) -> Result<Config, TokenStream> {
@@ -42,7 +42,7 @@ impl Config {
         }
 
         if !no_default_uses {
-            res.uses.extend(Config::get_default_uses());
+            res.uses.push(Config::get_default_uses());
         }
 
         Ok(res)
