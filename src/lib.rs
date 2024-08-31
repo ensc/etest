@@ -79,8 +79,12 @@
 //!
 //!   It can be compared to an exclusive lock.
 //!
-//! - `no_default_uses`: by default, every test has an implicit `uses="cpu"`.
-//!   This tag prevents it.
+//! - `no_default_uses`: by default, every test uses implicitly a default
+//!   resource. This tag prevents it.  See also `notparallel` below.
+//!
+//! - `notparallel`: with this tag the default ressource (see
+//!   `no_default_uses` above) is consumed so that the test does not run with
+//!   other ones in parallel.
 //!
 //! Both the `uses` and `consumes` resources can be specified as
 //!
@@ -109,6 +113,9 @@
 //!
 //! #[etest(consumes=[output()])]
 //! fn test1() { /* ... */ }
+
+//! #[etest(notparallel)]
+//! fn test2() { /* ... */ }
 //! ```
 //!
 //! ```
