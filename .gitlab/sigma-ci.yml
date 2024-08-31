@@ -16,6 +16,8 @@ variables:
     RUSTUP_CHAIN: stable
     _CARGO: "cargo +$RUSTUP_CHAIN"
     RUN_GRCOV: t
+    ETEST_IMPL_DUMP_CONFIG: t
+    DEFAULT_FEATURES: trace_resources
 
   coverage: /^\s*lines\.*:\s*([\d\.]+%)/
 

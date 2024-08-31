@@ -35,6 +35,8 @@ jobs:
     - name: Run tests
       env:
         RUN_GRCOV: t
+        ETEST_IMPL_DUMP_CONFIG: t
+        DEFAULT_FEATURES: trace_resources
       run: make test
 
     - name: Gather coverage
