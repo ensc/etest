@@ -20,12 +20,20 @@ impl ResourceBuilder {
     }
 
     pub fn consumes<T: Into<ResourceId>>(mut self, id: T) -> Self {
-        self.consumes.insert(id.into());
+        match id.into() {
+            id if id.is_some()	=> self.consumes.insert(id),
+            _			=> false,
+        };
+
         self
     }
 
     pub fn uses<T: Into<ResourceId>>(mut self, id: T) -> Self {
-        self.uses.insert(id.into());
+        match id.into() {
+            id if id.is_some()	=> self.uses.insert(id),
+            _			=> false,
+        };
+
         self
     }
 
