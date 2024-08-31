@@ -42,6 +42,14 @@ use std::borrow::Cow;
 pub enum ResourceIdImpl<'a> {
     /// Normal resource
     Id(Cow<'a, str>),
+
+    /// Basic resource which is used by all tests.
+    ///
+    /// Unless specified else (by the `no_default_uses` attribute), this
+    /// resource will be implicitly added to the "uses" list of every test.
+    /// To avoid parallel execution with other ones, a test can add this
+    /// resource type to its "consumes" list by the `notparallel` attribute.
+    Basic,
 }
 
 pub type ResourceId = ResourceIdImpl<'static>;
