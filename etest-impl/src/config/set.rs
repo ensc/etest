@@ -33,7 +33,7 @@ impl TokenSet {
             _		=> return Err(Error::BadValue),
         };
 
-        if let Some(_) = iter.next() {
+        if iter.next().is_some() {
             return Err(Error::ExtraData);
         }
 
