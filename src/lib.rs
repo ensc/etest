@@ -174,6 +174,10 @@ pub use location::Location;
 #[doc(inline)]
 pub use resource::ResourceId;
 
+// TODO: this is only public to allow rustdoc to generate the related
+// documentation
+pub use resource::ResourceIdImpl;
+
 #[doc(hidden)]
 pub use resource::{ ResourceBuilder, RESOURCES };
 

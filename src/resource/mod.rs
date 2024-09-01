@@ -9,6 +9,8 @@ mod lock;
 pub use builder::ResourceBuilder;
 pub use id::ResourceId;
 
+pub use id::ResourceIdImpl;
+
 use base::Resource;
 use set::ResourceSet;
 use manager::ResourceManager;
