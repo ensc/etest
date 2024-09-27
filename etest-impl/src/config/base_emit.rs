@@ -34,7 +34,7 @@ impl Config {
     /// ```ignore
     /// #[etest]
     /// fn test_sync() {}
-
+    ///
     /// #[etest]
     /// async fn test_async() {}
     /// ```
@@ -44,7 +44,7 @@ impl Config {
     /// ```ignore
     /// #[test]
     /// fn test_sync() {}
-
+    ///
     /// #[tokio::test]
     /// async fn test_async() {}
     /// ```
