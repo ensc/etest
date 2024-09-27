@@ -1,3 +1,5 @@
+use once_cell::sync::Lazy;
+
 mod base;
 mod id;
 mod set;
@@ -18,7 +20,5 @@ use manager::ResourceEntry;
 use notify::ResourceManagerNotify;
 use lock::ResourceLockGuard;
 
-lazy_static::lazy_static!(
-    /// Internal global object which manages the resouces.
-    pub static ref RESOURCES: std::sync::RwLock<ResourceManager> = Default::default();
-);
+/// Internal global object which manages the resouces.
+pub static RESOURCES: Lazy<std::sync::RwLock<ResourceManager>> = Lazy::new(Default::default);
